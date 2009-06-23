@@ -1,25 +1,43 @@
-use strict;
-use Test::Base;
+use TestML -run, -bridge => 'main';
+use base 'TestML::Bridge';
 
 use Web::Scraper;
-plan tests => 1 * blocks;
 
-filters {
-    selector => 'chomp',
-    expected => 'chomp',
-};
-
-run {
-    my $block = shift;
+sub scrape {
+    my $self = shift;
+    my $html = shift;
     my $s = scraper {
-        process $block->selector, text => 'TEXT';
+        process $self->value, text => 'TEXT';
         result 'text';
     };
-    my $text = $s->scrape($block->html);
-    is $text, $block->expected, $block->name;
-};
+    return $s->scrape($html->value);
+}
+
+# use strict;
+# use Test::Base;
+# 
+# use Web::Scraper;
+# plan tests => 1 * blocks;
+# 
+# filters {
+#     selector => 'chomp',
+#     expected => 'chomp',
+# };
+# 
+# run {
+#     my $block = shift;
+#     my $s = scraper {
+#         process $block->selector, text => 'TEXT';
+#         result 'text';
+#     };
+#     my $text = $s->scrape($block->html);
+#     is $text, $block->expected, $block->name;
+# };
 
 __DATA__
+%TestML: 1.0
+
+$selector.scrape($html) == $expected.Chomp();
 
 ===
 --- html
