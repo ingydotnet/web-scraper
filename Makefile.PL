@@ -24,6 +24,7 @@ if (eval q{ use HTML::TreeBuilder::LibXML 0.04 }) {
 }
 
 use_test_base;
+use_testml_tap;
 auto_include;
 auto_set_repository;
 author_tests "xt";
